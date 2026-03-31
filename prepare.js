@@ -1,11 +1,21 @@
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { OpenAIEmbeddings } from "@langchain/openai";
+import { PineconeStore } from "@langchain/pinecone";
+import { Pinecone as PineconeClient } from "@pinecone-database/pinecone";
+
 
 const embeddings = new OpenAIEmbeddings({
-    model: "text-embedding-3-small"
+    model: "text-embedding-3-small",
+    apiKey: process.env.OPENAI_API_KEY
 });
 
+const pinecone = new PineconeClient({ apiKey: process.env.PINECONE_API_KEY });
+const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX_NAME);
+const vectorStore = new PineconeStore(embeddings, {
+    pineconeIndex,
+    maxConcurrency: 5,
+});
 
 
 export async function indexTheDocument(filePath){

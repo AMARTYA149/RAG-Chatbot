@@ -13,7 +13,9 @@
     "@langchain/community": "^1.1.25",
     "@langchain/core": "^1.1.36",
     "@langchain/openai": "^1.4.1",
+    "@langchain/pinecone": "^1.0.1",
     "@langchain/textsplitters": "^1.0.1",
+    "@pinecone-database/pinecone": "^7.1.0",
     "pdf-parse": "2.4.5"
   }
 }
